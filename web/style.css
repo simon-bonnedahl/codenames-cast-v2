@@ -1,0 +1,36 @@
+body{
+    background-color: #262626;
+    overflow: hidden;
+}
+
+canvas{
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    pointer-events: none;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to right, #4e4376, #2b5876);
+    width: 100%;
+    margin-top: 5vh;
+    height: 6vh;
+    align-items: center;
+    z-index: 5;
+  }
+
+.page-link{
+    font-family: "Raleway Bold";
+    margin: 40px;
+    font-size: 20px;
+    color:white;
+    text-decoration: none;
+}
+.page-link:hover{
+    cursor: pointer;
+    color: #aba192;
+}

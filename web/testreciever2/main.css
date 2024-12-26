@@ -1,0 +1,65 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+    height: 100vh;
+    background: -webkit-linear-gradient(to right, #4e4376, #2b5876, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4e4376, #2b5876, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: 500%;
+    overflow-y: hidden;
+}
+
+.webgl
+{
+    position: fixed;
+    top: 10px;
+    left: 0;
+    outline: none;
+
+}
+#scorePanel{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    height: 150px;
+    margin:auto;
+    margin-top: 600px;
+}
+.score{
+    display: flex;
+    width: 33%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 150px;
+}
+.separator{
+    display: flex;
+    width: 33%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    background: linear-gradient(-45deg, #f6e8d6, #ecdcc7, #cec0af,#aba192,#cec0af, #ecdcc7, #f6e8d6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#redScore{
+    background: -webkit-linear-gradient(-45deg, #fe5757, #fe2e2e,  #b62020, #fe2e2e, #fe5757);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+#blueScore{
+    background: -webkit-linear-gradient(-45deg, #43c4ef,  #00b4ff, #0066ff, #00b4ff, #43c4ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/*# sourceMappingURL=main.css.map*/
