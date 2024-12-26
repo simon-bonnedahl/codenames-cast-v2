@@ -43,7 +43,7 @@
   function sendText(txt) {
     var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
     if (castSession) {
-      castSession.sendMessage('urn:x-cast:ch.cimnine.cromecast-test.text', {
+      castSession.sendMessage('urn:x-cast:ch.cimnine.chromecast-cryptowords.text', {
         type: "message",
         text: txt
       });
