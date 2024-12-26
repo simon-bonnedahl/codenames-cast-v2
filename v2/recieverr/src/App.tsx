@@ -7,7 +7,7 @@ const App: React.FC = () => {
       console.log('Cast Receiver Context initialized:', context);
 
       // Listen for custom messages
-      context.addCustomMessageListener('urn:x-cast:com.example.codenames', (event) => {
+      context.addCustomMessageListener('urn:x-cast:com.example.codenames', (event : any) => {
         console.log('Received message:', event.data);
         const { action, payload } = event.data;
         if (action === 'reveal_word') {
