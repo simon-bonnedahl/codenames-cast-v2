@@ -1,31 +1,72 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 const App: React.FC = () => {
+  const [message, setMessage] = React.useState("");
+  const [cells, setCells] = React.useState([]);
+
+  const getColor = (type: string) => {
+    switch (type) {
+      case "red":
+        return "#e96057";
+      case "blue":
+        return "#63bdee";
+      case "neutral":
+        return "#ccc1b1";
+      case "bomb":
+        return "#363532";
+      default:
+        return "white";
+    }
+  };
+
   useEffect(() => {
-    if (window.cast && cast.framework) {
+    try {
       const context = cast.framework.CastReceiverContext.getInstance();
-      console.log('Cast Receiver Context initialized:', context);
+      const options = new cast.framework.CastReceiverOptions();
+      options.disableIdleTimeout = true;
+      context.addCustomMessageListener(
+        "urn:x-cast:ch.cimnine.chromecast-cryptowords.text",
+        function (customEvent: any) {
+          console.log("Received message:", customEvent.data);
+          // setMessage(JSON.stringify(customEvent.data));
+          const { type, payload } = customEvent.data;
+          if (type === "update") {
+            // setPrevious(message);
+            setMessage("Update:" + JSON.stringify(payload));
+            setCells(payload);
+           
 
-      // Listen for custom messages
-      context.addCustomMessageListener('urn:x-cast:com.example.codenames', (event : any) => {
-        console.log('Received message:', event.data);
-        const { action, payload } = event.data;
-        if (action === 'reveal_word') {
-          console.log(`Reveal word at index ${payload.index} with color ${payload.color}`);
+          }
         }
-      });
-
-      // Start the Cast Receiver
-      context.start();
-    } else {
-      console.error('Cast SDK not loaded');
+      );
+      context.start(options);
+    } catch (error: any) {
+      console.error("Cast SDK not loaded");
+      console.error(error);
     }
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Cast Receiver App</h1>
-      <p>This is your receiver app, running on Chromecast!</p>
+    <div className="flex flex-col items-center justify-center">
+      {/* <p>Message received: {message}</p> */}
+      {/* <p>Cells: {cells.toString()}</p> */}
+
+      {/* 5x5 grid */}
+      <div className="grid grid-cols-5 gap-4 mt-6">
+        {cells?.map((cell, index) => {
+       
+          return (
+            <div
+              key={index}
+              className={`flex items-center justify-center w-20 h-20 border border-gray-400 rounded shadow text-black `}
+              style={{ backgroundColor: cell.shown  ? getColor(cell.type)  : "white"}}
+              
+            >
+              {cell.word}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
