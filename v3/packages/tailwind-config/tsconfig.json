@@ -1,0 +1,9 @@
+// tsconfig.json
+{
+  "extends": "@turbo-with-tailwind/typescript-config/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["tailwind.config.ts"],
+  "exclude": ["node_modules", "dist"]
+}

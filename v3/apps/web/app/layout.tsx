@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Script from 'next/script'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,6 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js" strategy="lazyOnload" />
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>

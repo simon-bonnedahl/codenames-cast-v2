@@ -14,7 +14,7 @@
 {
 // @generated begin react-native-google-cast-didFinishLaunchingWithOptions - expo prebuild (DO NOT MODIFY) sync-5b3c3abd2ea16c5f5c56f22eac9a1d71742fae90
 #if __has_include(<GoogleCast/GoogleCast.h>)
-  NSString *receiverAppID = @"E7793290";
+  NSString *receiverAppID = @"B447C75C";
   GCKDiscoveryCriteria *criteria = [[GCKDiscoveryCriteria alloc] initWithApplicationID:receiverAppID];
   GCKCastOptions* options = [[GCKCastOptions alloc] initWithDiscoveryCriteria:criteria];
   options.disableDiscoveryAutostart = false;

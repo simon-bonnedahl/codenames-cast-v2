@@ -59,7 +59,7 @@ const App: React.FC = () => {
             <div
               key={index}
               className={`flex items-center justify-center w-20 h-20 border border-gray-400 rounded shadow text-black `}
-              style={{ backgroundColor: cell.shown  ? getColor(cell.type)  : "white"}}
+              style={{ backgroundColor: cell.shown  ? getColor(cell.typecd)  : "white"}}
               
             >
               {cell.word}
