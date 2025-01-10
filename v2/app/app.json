@@ -38,7 +38,7 @@
       [
         "react-native-google-cast",
         {
-          "receiverAppId": "6A0EADE2",
+          "receiverAppId": "B447C75C",
           "iosStartDiscoveryAfterFirstTapOnCastButton": false
         }
       ],
