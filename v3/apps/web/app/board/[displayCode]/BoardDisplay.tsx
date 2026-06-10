@@ -53,70 +53,82 @@ export function BoardDisplay({ displayCode }: { displayCode: string }) {
 
       <div className="relative flex h-full flex-col gap-[min(1.2vw,1.2vh)] p-[min(2vw,2vh)]">
         {/* Header bar */}
-        <header className="flex shrink-0 items-center justify-between gap-4 rounded-2xl border border-white/8 bg-white/5 px-[min(2vw,2vh)] py-[min(1.2vw,1.2vh)] backdrop-blur-sm">
-          <div className="flex items-center gap-3">
+        <header className="flex shrink-0 items-center gap-[min(2vw,2vh)] rounded-2xl border border-white/8 bg-white/5 px-[min(2vw,2vh)] py-[min(1.2vw,1.2vh)] backdrop-blur-sm">
+          {/* Brand */}
+          <div className="flex items-center gap-2 shrink-0">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-600">
               <span className="text-xs font-black">CW</span>
             </div>
-            <div>
-              <p className="text-[0.6rem] font-black uppercase tracking-[0.5em] text-white/35">
-                CodeWords
-              </p>
-              <p className="font-mono text-[clamp(0.9rem,2vw,1.4rem)] font-black tracking-[0.2em] text-amber-200/80">
-                {game.displayCode}
-              </p>
-            </div>
+            <p className="font-mono text-[clamp(0.8rem,1.6vw,1.2rem)] font-black tracking-[0.2em] text-amber-200/70">
+              {game.displayCode}
+            </p>
           </div>
 
-          {/* Scores */}
-          <div className="flex items-center gap-3">
+          {/* Whose turn it is — big, centred */}
+          {!game.winner && (
             <div
               className={[
-                "flex items-center gap-2 rounded-xl border px-[min(1.5vw,1.5vh)] py-[min(0.8vw,0.8vh)] transition-all duration-500",
-                isRed && !game.winner
-                  ? "border-red-400/50 bg-red-500/20 shadow-lg shadow-red-500/20"
-                  : "border-white/5 bg-white/5",
+                "flex flex-1 items-center justify-center gap-[min(1vw,1vh)] rounded-xl border py-[min(0.8vw,0.8vh)] transition-all duration-500",
+                isRed
+                  ? "border-red-400/50 bg-red-500/15 shadow-lg shadow-red-500/20"
+                  : "border-sky-400/50 bg-sky-500/15 shadow-lg shadow-sky-500/20",
               ].join(" ")}
             >
-              <div className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="text-[clamp(1.2rem,2.5vw,2.5rem)] font-black leading-none text-red-200">
+              <div className={["h-3 w-3 rounded-full", isRed ? "bg-red-400" : "bg-sky-400"].join(" ")} />
+              <span
+                className={[
+                  "text-[clamp(1rem,2.2vw,1.8rem)] font-black uppercase tracking-widest",
+                  isRed ? "text-red-200" : "text-sky-200",
+                ].join(" ")}
+              >
+                {game.currentTurn} team's turn
+              </span>
+            </div>
+          )}
+
+          {/* Scores */}
+          <div className="flex shrink-0 items-center gap-[min(1vw,1vh)]">
+            <div
+              className={[
+                "flex items-center gap-2 rounded-xl border px-[min(1.2vw,1.2vh)] py-[min(0.6vw,0.6vh)] transition-all duration-500",
+                isRed && !game.winner ? "border-red-400/40 bg-red-500/15" : "border-white/5 bg-white/5",
+              ].join(" ")}
+            >
+              <div className="h-2 w-2 rounded-full bg-red-400" />
+              <span className="text-[clamp(1.1rem,2.2vw,2rem)] font-black leading-none text-red-200">
                 {game.redRemaining}
               </span>
-              <span className="text-[0.65rem] font-black uppercase tracking-widest text-red-300/50">
-                Red
-              </span>
-              {isRed && !game.winner && (
-                <span className="rounded-md bg-red-500/30 px-1.5 py-0.5 text-[0.6rem] font-black uppercase tracking-wider text-red-200">
-                  Turn
-                </span>
-              )}
             </div>
 
-            <span className="text-xs font-black text-white/15">vs</span>
+            <span className="text-[0.6rem] font-black text-white/15">vs</span>
 
             <div
               className={[
-                "flex items-center gap-2 rounded-xl border px-[min(1.5vw,1.5vh)] py-[min(0.8vw,0.8vh)] transition-all duration-500",
-                isBlue && !game.winner
-                  ? "border-sky-400/50 bg-sky-500/20 shadow-lg shadow-sky-500/20"
-                  : "border-white/5 bg-white/5",
+                "flex items-center gap-2 rounded-xl border px-[min(1.2vw,1.2vh)] py-[min(0.6vw,0.6vh)] transition-all duration-500",
+                isBlue && !game.winner ? "border-sky-400/40 bg-sky-500/15" : "border-white/5 bg-white/5",
               ].join(" ")}
             >
-              <div className="h-2.5 w-2.5 rounded-full bg-sky-400" />
-              <span className="text-[clamp(1.2rem,2.5vw,2.5rem)] font-black leading-none text-sky-200">
+              <div className="h-2 w-2 rounded-full bg-sky-400" />
+              <span className="text-[clamp(1.1rem,2.2vw,2rem)] font-black leading-none text-sky-200">
                 {game.blueRemaining}
               </span>
-              <span className="text-[0.65rem] font-black uppercase tracking-widest text-sky-300/50">
-                Blue
-              </span>
-              {isBlue && !game.winner && (
-                <span className="rounded-md bg-sky-500/30 px-1.5 py-0.5 text-[0.6rem] font-black uppercase tracking-wider text-sky-200">
-                  Turn
-                </span>
-              )}
             </div>
           </div>
         </header>
+
+        {/* Players */}
+        {gameState.players.length > 0 && (
+          <div className="flex shrink-0 flex-wrap items-center gap-[min(0.8vw,0.8vh)]">
+            {gameState.players.map((p: { _id: string; name: string; joinedAt: number }) => (
+              <span
+                key={p._id}
+                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-[clamp(0.6rem,1.2vw,0.85rem)] font-black text-white/60"
+              >
+                🕵️ {p.name}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Winner banner */}
         {game.winner && (

@@ -1,0 +1,27 @@
+{
+  "name": "@cipherlink/backend",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./convex/_generated/api": "./convex/_generated/api.js"
+  },
+  "description": "",
+  "scripts": {
+    "dev": "convex dev",
+    "setup": "convex dev --until-success"
+  },
+  "dependencies": {
+    "convex": "^1.18.2",
+    "convex-ents": "^0.13.0",
+    "convex-helpers": "^0.1.68",
+    "convex-test": "^0.0.35",
+    "hono": "^4.6.20",
+    "slugify": "^1.6.6",
+    "svix": "^1.45.1",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@types/uuid": "^10.0.0"
+  }
+}
