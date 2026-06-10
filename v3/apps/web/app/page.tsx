@@ -153,152 +153,155 @@ export default function Home() {
         </div>
       )}
 
-      {/* Game active — fixed full-screen mission control */}
+      {/* Game active — fixed full-screen mission control, stacked layout */}
       {isGameActive && (
-        <div className="relative flex h-full gap-3 p-4">
+        <div className="relative flex h-full flex-col gap-2 px-4 py-3">
 
-          {/* ── Left sidebar ── */}
-          <aside className="flex w-56 shrink-0 flex-col gap-3">
-
-            {/* Brand + new mission */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-600">
-                  <span className="text-xs font-black">CW</span>
-                </div>
-                <span className="text-xs font-black uppercase tracking-[0.25em] text-white/40">
-                  CodeWords
-                </span>
+          {/* Top bar: brand + new mission */}
+          <header className="flex shrink-0 items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-600 shadow-md shadow-cyan-500/30">
+                <span className="text-xs font-black">CW</span>
               </div>
-              <button
-                className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[0.6rem] font-black uppercase tracking-wider text-white/50 transition hover:bg-white/10 hover:text-white"
-                type="button"
-                onClick={startMission}
+              <span className="text-sm font-black uppercase tracking-[0.3em] text-white/50">
+                CodeWords
+              </span>
+            </div>
+            <button
+              className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-black uppercase tracking-wider text-white/60 transition hover:bg-white/10 hover:text-white"
+              type="button"
+              onClick={startMission}
+            >
+              New Mission
+            </button>
+          </header>
+
+          {/* Wide score + info row */}
+          <div className="grid shrink-0 grid-cols-[1fr_1fr_auto] gap-2">
+            {/* Red score card */}
+            <div
+              className={[
+                "flex items-center gap-4 rounded-2xl border px-5 py-4 transition-all duration-500",
+                isRed && !hasWinner
+                  ? "border-red-400/40 bg-red-500/12 shadow-lg shadow-red-500/15"
+                  : "border-white/6 bg-white/4",
+              ].join(" ")}
+            >
+              <div
+                className={[
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-2xl font-black transition-all duration-500",
+                  isRed && !hasWinner ? "bg-red-500/30 text-red-200" : "bg-red-500/10 text-red-300/50",
+                ].join(" ")}
               >
-                New
-              </button>
+                {game?.redRemaining ?? "–"}
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-red-300/50">
+                  Red team
+                </p>
+                <p className="text-xs text-red-200/40">words remaining</p>
+              </div>
+              {isRed && !hasWinner && (
+                <span className="ml-auto rounded-lg bg-red-500/25 px-2.5 py-1 text-[0.6rem] font-black uppercase tracking-wider text-red-200">
+                  Turn
+                </span>
+              )}
             </div>
 
-            {/* Red score */}
-            {game && (
+            {/* Blue score card */}
+            <div
+              className={[
+                "flex items-center gap-4 rounded-2xl border px-5 py-4 transition-all duration-500",
+                isBlue && !hasWinner
+                  ? "border-sky-400/40 bg-sky-500/12 shadow-lg shadow-sky-500/15"
+                  : "border-white/6 bg-white/4",
+              ].join(" ")}
+            >
               <div
                 className={[
-                  "flex flex-1 flex-col justify-center rounded-2xl border px-5 py-5 transition-all duration-500",
-                  isRed && !hasWinner
-                    ? "border-red-400/50 bg-red-500/15 shadow-lg shadow-red-500/20"
-                    : "border-white/6 bg-white/4",
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-2xl font-black transition-all duration-500",
+                  isBlue && !hasWinner ? "bg-sky-500/30 text-sky-200" : "bg-sky-500/10 text-sky-300/50",
                 ].join(" ")}
               >
-                <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-red-400" />
-                  <p className="text-xs font-black uppercase tracking-widest text-red-300/60">
-                    Red team
-                  </p>
-                  {isRed && !hasWinner && (
-                    <span className="ml-auto rounded-md bg-red-500/30 px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-wider text-red-200">
-                      Turn
-                    </span>
-                  )}
-                </div>
-                <p className="mt-2 text-6xl font-black leading-none text-red-200">
-                  {game.redRemaining}
+                {game?.blueRemaining ?? "–"}
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-sky-300/50">
+                  Blue team
                 </p>
-                <p className="mt-1 text-xs text-red-300/40">words left</p>
+                <p className="text-xs text-sky-200/40">words remaining</p>
               </div>
-            )}
+              {isBlue && !hasWinner && (
+                <span className="ml-auto rounded-lg bg-sky-500/25 px-2.5 py-1 text-[0.6rem] font-black uppercase tracking-wider text-sky-200">
+                  Turn
+                </span>
+              )}
+            </div>
 
-            {/* Blue score */}
-            {game && (
-              <div
-                className={[
-                  "flex flex-1 flex-col justify-center rounded-2xl border px-5 py-5 transition-all duration-500",
-                  isBlue && !hasWinner
-                    ? "border-sky-400/50 bg-sky-500/15 shadow-lg shadow-sky-500/20"
-                    : "border-white/6 bg-white/4",
-                ].join(" ")}
-              >
-                <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-sky-400" />
-                  <p className="text-xs font-black uppercase tracking-widest text-sky-300/60">
-                    Blue team
-                  </p>
-                  {isBlue && !hasWinner && (
-                    <span className="ml-auto rounded-md bg-sky-500/30 px-2 py-0.5 text-[0.6rem] font-black uppercase tracking-wider text-sky-200">
-                      Turn
-                    </span>
-                  )}
-                </div>
-                <p className="mt-2 text-6xl font-black leading-none text-sky-200">
-                  {game?.blueRemaining}
-                </p>
-                <p className="mt-1 text-xs text-sky-300/40">words left</p>
-              </div>
-            )}
-
-            {/* Winner banner */}
-            {hasWinner && (
-              <div
-                className={[
-                  "rounded-2xl px-5 py-4 text-center font-black uppercase tracking-widest",
-                  game?.winner === "red"
-                    ? "bg-red-500/20 text-red-200"
-                    : "bg-sky-500/20 text-sky-200",
-                ].join(" ")}
-              >
-                {game?.winner} wins!
-              </div>
-            )}
-
-            {/* Board code + share */}
+            {/* Board code card */}
             {displayCode && boardUrl && (
-              <div className="rounded-2xl border border-white/8 bg-white/4 px-4 py-4">
-                <p className="text-[0.6rem] font-black uppercase tracking-[0.35em] text-white/30">
-                  Board code
-                </p>
-                <p className="mt-1 font-mono text-2xl font-black tracking-[0.15em] text-amber-200">
-                  {displayCode}
-                </p>
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  <button
-                    className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-white/50 transition hover:bg-white/10 hover:text-white"
-                    type="button"
-                    onClick={copyBoardUrl}
-                  >
-                    {copied ? "Copied!" : "Copy link"}
-                  </button>
-                  <Link
-                    className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-amber-200 transition hover:bg-amber-400/20"
-                    href={boardUrl}
-                    target="_blank"
-                  >
-                    Open board
-                  </Link>
+              <div className="flex items-center gap-4 rounded-2xl border border-white/6 bg-white/4 px-5 py-4">
+                <div>
+                  <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-white/30">
+                    Board code
+                  </p>
+                  <p className="mt-0.5 font-mono text-xl font-black tracking-[0.15em] text-amber-200">
+                    {displayCode}
+                  </p>
                 </div>
-                <div className="mt-2">
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex gap-1.5">
+                    <button
+                      className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-white/50 transition hover:bg-white/10 hover:text-white"
+                      type="button"
+                      onClick={copyBoardUrl}
+                    >
+                      {copied ? "Copied!" : "Copy"}
+                    </button>
+                    <Link
+                      className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-amber-200 transition hover:bg-amber-400/20"
+                      href={boardUrl}
+                      target="_blank"
+                    >
+                      Open
+                    </Link>
+                  </div>
                   <CastSender displayCode={displayCode} />
                 </div>
               </div>
             )}
+          </div>
 
-            {error && (
-              <div className="rounded-xl border border-red-400/30 bg-red-950/50 px-3 py-2 text-xs text-red-200">
-                {error}
-              </div>
-            )}
-          </aside>
+          {/* Winner banner */}
+          {hasWinner && (
+            <div
+              className={[
+                "shrink-0 rounded-2xl py-3 text-center font-black uppercase tracking-widest",
+                game?.winner === "red"
+                  ? "bg-red-500/20 text-red-200"
+                  : "bg-sky-500/20 text-sky-200",
+              ].join(" ")}
+            >
+              {game?.winner} wins!
+            </div>
+          )}
 
-          {/* ── Board area — centered with padding on both sides ── */}
-          <div className="flex min-w-0 flex-1 items-center justify-center px-4">
+          {error && (
+            <div className="shrink-0 rounded-xl border border-red-400/30 bg-red-950/50 px-3 py-2 text-xs text-red-200">
+              {error}
+            </div>
+          )}
+
+          {/* Board — fills all remaining height */}
+          <div className="min-h-0 flex-1">
             {gameState ? (
-              <div className="h-full w-full max-w-3xl">
-                <GameBoard
-                  cells={gameState.cells as BoardCell[]}
-                  mode="controller"
-                  onReveal={reveal}
-                />
-              </div>
+              <GameBoard
+                cells={gameState.cells as BoardCell[]}
+                mode="controller"
+                onReveal={reveal}
+              />
             ) : (
-              <div className="flex h-full w-full items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/3 text-white/30">
+              <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10 bg-white/3 text-white/30">
                 <p className="text-sm font-black uppercase tracking-widest">Loading board…</p>
               </div>
             )}
