@@ -197,17 +197,13 @@ export function BoardDisplay({ displayCode, variant = "browser" }: BoardDisplayP
           </div>
         )}
 
-        {/* Board — same flex layout as controller web app */}
-        <div className="min-h-0 flex-1">
-          <div className="mx-auto flex h-full max-h-full w-full max-w-full items-center justify-center">
-            <div className="aspect-square h-full max-h-full w-auto max-w-full">
-              <GameBoard
-                cells={gameState.cells as BoardCell[]}
-                mode="display"
-                size={isTv ? "tv" : "default"}
-              />
-            </div>
-          </div>
+        {/* Board — wide landscape grid, fills remaining space */}
+        <div className="min-h-0 w-full flex-1">
+          <GameBoard
+            cells={gameState.cells as BoardCell[]}
+            mode="display"
+            size={isTv ? "tv" : "default"}
+          />
         </div>
       </div>
     </main>
