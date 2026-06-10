@@ -19,7 +19,6 @@ export const metadata: Metadata = {
   title: "CodeWords",
   description: "A playful Codenames-style board for phones, browsers, and TV displays.",
   icons: {
-    icon: "/icon.png",
     apple: "/apple-icon.png",
   },
 };
