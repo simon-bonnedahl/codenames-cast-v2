@@ -13,6 +13,7 @@ export type BoardCell = {
 type GameBoardProps = {
   cells: BoardCell[];
   mode: "controller" | "display";
+  size?: "default" | "tv";
   onReveal?: (index: number) => void;
 };
 
@@ -45,8 +46,8 @@ function getCellClass(cell: BoardCell, mode: GameBoardProps["mode"]) {
   return hiddenCell;
 }
 
-export function GameBoard({ cells, mode, onReveal }: GameBoardProps) {
-  const isDisplay = mode === "display";
+export function GameBoard({ cells, mode, onReveal, size = "default" }: GameBoardProps) {
+  const isTv = size === "tv";
 
   // Both modes use the same grid strategy: fill the parent container with grid-rows-5.
   // The parent is responsible for providing a bounded height (h-full / flex-1 min-h-0).
@@ -54,9 +55,7 @@ export function GameBoard({ cells, mode, onReveal }: GameBoardProps) {
     <div
       className={[
         "grid h-full w-full grid-cols-5 grid-rows-5",
-        isDisplay
-          ? "mx-auto max-w-[150vh] gap-[min(1vw,0.9vh)]"
-          : "gap-1.5 sm:gap-2",
+        isTv ? "gap-2" : "gap-1.5 sm:gap-2",
       ].join(" ")}
     >
       {cells.map((cell) => {
@@ -64,7 +63,14 @@ export function GameBoard({ cells, mode, onReveal }: GameBoardProps) {
         const showBombIcon = isBomb && (cell.revealed || mode === "controller");
 
         const wordEl = (
-          <span className="text-center text-[clamp(0.55rem,1.6vw,1.1rem)] font-black uppercase tracking-wide leading-tight">
+          <span
+            className={[
+              "text-center font-black uppercase tracking-wide leading-tight",
+              isTv
+                ? "text-[clamp(0.7rem,2.2vh,1.35rem)]"
+                : "text-[clamp(0.55rem,1.6vw,1.1rem)]",
+            ].join(" ")}
+          >
             {cell.word}
           </span>
         );

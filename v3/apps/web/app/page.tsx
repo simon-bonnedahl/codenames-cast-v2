@@ -2,7 +2,6 @@
 
 import { useMutation, useQuery } from "convex/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -58,7 +57,6 @@ export default function Home() {
   const [controllerToken, setControllerToken] = useState<string | null>(null);
   const [language, setLanguage] = useState("en");
   const [error, setError] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
 
   // Restore saved controller session
   useEffect(() => {
@@ -77,7 +75,6 @@ export default function Home() {
   }, [controllerToken, displayCode]);
 
   const gameState = useQuery(api.games.getControllerByDisplayCode, controllerArgs);
-  const boardUrl = displayCode ? `/board/${displayCode}` : null;
   const hasSavedGame = !!(displayCode && controllerToken);
 
   // ── Actions ─────────────────────────────────────────────────────────────
@@ -119,15 +116,6 @@ export default function Home() {
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : "Could not swap turn.");
     }
-  }
-
-  function copyBoardUrl() {
-    if (!boardUrl) return;
-    const full = `${window.location.origin}${boardUrl}`;
-    navigator.clipboard.writeText(full).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
   }
 
   function goToMenu() {
@@ -336,23 +324,13 @@ export default function Home() {
             </div>
 
             {/* Board code */}
-            {displayCode && boardUrl && (
+            {displayCode && (
               <div className="flex items-center gap-4 rounded-2xl border border-white/6 bg-white/4 px-5 py-4">
                 <div>
                   <p className="text-[0.6rem] font-black uppercase tracking-[0.3em] text-white/30">Board code</p>
                   <p className="mt-0.5 font-mono text-xl font-black tracking-[0.15em] text-amber-200">{displayCode}</p>
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex gap-1.5">
-                    <button className="rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-white/50 transition hover:bg-white/10 hover:text-white" type="button" onClick={copyBoardUrl}>
-                      {copied ? "Copied!" : "Copy"}
-                    </button>
-                    <Link className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2.5 py-1.5 text-[0.6rem] font-black uppercase tracking-wider text-amber-200 transition hover:bg-amber-400/20" href={boardUrl} target="_blank">
-                      Open
-                    </Link>
-                  </div>
-                  <CastSender displayCode={displayCode} />
-                </div>
+                <CastSender displayCode={displayCode} />
               </div>
             )}
           </div>

@@ -69,19 +69,23 @@ export default function ReceiverPage() {
   }, []);
 
   if (displayCode) {
-    return <BoardDisplay displayCode={displayCode} />;
+    return <BoardDisplay displayCode={displayCode} variant="tv" />;
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[radial-gradient(circle_at_top,#293b7a,transparent_35%),#100d1f] p-8 text-white">
-      <div className="max-w-2xl rounded-[2rem] border border-white/10 bg-white/10 p-10 text-center shadow-2xl backdrop-blur">
-        <p className="text-sm font-black uppercase tracking-[0.45em] text-cyan-200">
+    <main className="flex min-h-screen items-center justify-center bg-[#0b0919] p-8 text-white">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -left-64 -top-64 h-[600px] w-[600px] rounded-full bg-indigo-900/30 blur-[120px]" />
+        <div className="absolute -right-64 top-0 h-[500px] w-[500px] rounded-full bg-rose-900/25 blur-[120px]" />
+      </div>
+      <div className="relative max-w-2xl rounded-[2rem] border border-white/10 bg-white/5 p-10 text-center shadow-2xl backdrop-blur">
+        <p className="text-sm font-black uppercase tracking-[0.45em] text-cyan-200/80">
           Chromecast receiver
         </p>
         <h1 className="mt-5 text-5xl font-black">Waiting for a mission code.</h1>
-        <p className="mt-5 text-white/70">
+        <p className="mt-5 text-white/50">
           {ready
-            ? "Cast a CodeWords game to this screen to join its Convex-backed board."
+            ? "Cast a CodeWords game from the controller to show the live board here."
             : "Loading the Cast receiver framework..."}
         </p>
       </div>
