@@ -4,6 +4,8 @@ import { useMutation, useQuery } from "convex/react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import Image from "next/image";
+
 import { CastSender } from "./components/CastSender";
 import { GameBoard, type BoardCell } from "./components/GameBoard";
 import { api } from "../lib/api";
@@ -117,9 +119,7 @@ export default function Home() {
         <div className="relative flex min-h-screen flex-col">
           <header className="flex items-center justify-between px-6 py-5">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-indigo-600 shadow-lg shadow-cyan-500/30">
-                <span className="text-sm font-black">CW</span>
-              </div>
+              <Image src="/icon.png" alt="CodeWords" width={36} height={36} className="rounded-xl" />
               <span className="text-sm font-black uppercase tracking-[0.3em] text-white/60">
                 CodeWords
               </span>
@@ -160,9 +160,7 @@ export default function Home() {
           {/* Top bar: brand + new mission */}
           <header className="flex shrink-0 items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-400 to-indigo-600 shadow-md shadow-cyan-500/30">
-                <span className="text-xs font-black">CW</span>
-              </div>
+              <Image src="/icon.png" alt="CodeWords" width={32} height={32} className="rounded-lg" />
               <span className="text-sm font-black uppercase tracking-[0.3em] text-white/50">
                 CodeWords
               </span>
