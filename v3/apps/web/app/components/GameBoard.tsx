@@ -16,18 +16,20 @@ type GameBoardProps = {
   onReveal?: (index: number) => void;
 };
 
+// Revealed: vivid, saturated — should look obviously "activated"
 const revealedPalette: Record<Exclude<CellType, null>, string> = {
-  red: "border-red-400/40 bg-gradient-to-br from-red-500 to-red-900 text-white shadow-red-700/40",
-  blue: "border-sky-400/40 bg-gradient-to-br from-sky-400 to-indigo-900 text-white shadow-sky-700/40",
-  neutral: "border-stone-300/30 bg-gradient-to-br from-stone-300 to-stone-600 text-stone-950 shadow-stone-700/20",
-  bomb: "border-purple-400/30 bg-gradient-to-br from-zinc-800 to-black text-white shadow-purple-900/50",
+  red: "border-red-300/60 bg-gradient-to-br from-red-400 via-red-600 to-red-800 text-white shadow-lg shadow-red-600/50 ring-2 ring-red-300/30",
+  blue: "border-sky-300/60 bg-gradient-to-br from-sky-300 via-blue-500 to-indigo-700 text-white shadow-lg shadow-sky-500/50 ring-2 ring-sky-300/30",
+  neutral: "border-stone-200/60 bg-gradient-to-br from-stone-200 via-stone-400 to-stone-500 text-stone-900 shadow-lg shadow-stone-400/30 ring-2 ring-stone-200/30",
+  bomb: "border-purple-300/50 bg-gradient-to-br from-purple-900 via-zinc-900 to-black text-white shadow-lg shadow-purple-700/50 ring-2 ring-purple-400/30",
 };
 
+// Unrevealed hints: muted but readable — tinted dark, clearly different from revealed
 const controllerHintPalette: Record<Exclude<CellType, null>, string> = {
-  red: "border-red-500/50 bg-gradient-to-br from-red-900/80 to-red-950 text-red-200",
-  blue: "border-sky-500/50 bg-gradient-to-br from-sky-900/80 to-indigo-950 text-sky-200",
-  neutral: "border-stone-400/30 bg-gradient-to-br from-stone-700/60 to-stone-900 text-stone-300",
-  bomb: "border-purple-500/30 bg-gradient-to-br from-zinc-900/80 to-black text-purple-200",
+  red: "border-red-700/40 bg-gradient-to-br from-red-900/70 to-red-950/90 text-red-400",
+  blue: "border-sky-700/40 bg-gradient-to-br from-sky-900/70 to-indigo-950/90 text-sky-400",
+  neutral: "border-stone-500/40 bg-gradient-to-br from-stone-600/70 to-stone-700/90 text-stone-300",
+  bomb: "border-purple-700/40 bg-gradient-to-br from-zinc-800/70 to-zinc-900/90 text-zinc-400",
 };
 
 const hiddenCell =
@@ -77,7 +79,7 @@ export function GameBoard({ cells, mode, onReveal }: GameBoardProps) {
           !cell.revealed && onReveal
             ? "cursor-pointer hover:-translate-y-0.5 hover:scale-[1.02] hover:brightness-125 active:scale-[0.98]"
             : "",
-          cell.revealed ? "opacity-90 ring-1 ring-white/20 brightness-95" : "",
+          cell.revealed ? "opacity-95" : "",
         ]
           .filter(Boolean)
           .join(" ");
